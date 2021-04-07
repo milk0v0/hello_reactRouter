@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+## 路由
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
++ 关于 SPA 在 [Vue-Router](https://juejin.cn/post/6906871851365564424) 有详细的说嗷~有兴趣可以看一看
++ 还是简单说一下路由吧，它就是根据不同的url规则，给用户展示不同的视图(页面)
++ 在 Vue 中，有 Vue-Router，在 React 中，同样也有 React-Router
+  + 同样有 基于 URL Hash 的路由
+  + 基于 HTML5 History API 的路由
++ React Router 提供了多种不同环境下的路由库
+  + Web
+  + Native
++ 以下主要说说 Web 端的 router
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+## 安装
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
++ 基于 web 的 React Router 为：react-router-dom
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```sh
+npm i react-router-dom
+```
 
-### `yarn test`
++ React-Router 在 5.0 版本前没有 Hooks，这个需要注意一下
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 组件
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### HashRouter/BrowserRouter
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```javascript
+import { HashRouter, BrowserRouter } from 'react-router-dom'
+```
 
-### `yarn eject`
++ HashRouter - 哈希模式下的路由组件
+  + 基于 URL Hash 的路由组件
++ BrowserRouter - history模式下的路由组件
+  + 基于 HTML5 History API 的路由组件
++ 使用起来也非常简单，在根组件外包一层就可以了 - 简单、快手、易使用
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+import { HashRouter, BrowserRouter } from 'react-router-dom'
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+import App from './App'
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+ReactDOM.render(
+    // <HashRouter>
+    //     <App />
+    // </HashRouter>,
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    document.querySelector('#root')
+)
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Route
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
++ 通过该组件来设置应用单个路由信息，Route 组件所在的区域就是就是当 URL 与当前 Route 设置的 path 属性匹配的时候，后面 component 将要显示的区域
++ path - 该路由要匹配的 url
+  + path 默认是模糊匹配，即当前 url 以该 path 开头时就进行匹配
+  + **exact** - 精确匹配，则当前 url 必须和 path 一致才会进行匹配
++ component - 匹配成功之后要显示的视图
