@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router'
 import IndexView from './views/indexView'
 import AboutView from './views/aboutView'
@@ -8,19 +8,7 @@ import view404 from './views/view404'
 
 import './css/index.css'
 
-/**
- * 通过 Route 去调用视图
- *  component - 通过组件直接调用
- *  render 中接收是回调函数，回调函数的返回值中定义该 Route 要渲染的视图
- * 
- * 路由组件：被 Route 直接调用的组件，叫做路由组件
- *  在路由组件中，可以获取到 Route 传递的路由参数
- * 路由参数:
- *  
- */
-
 export default function App() {
-    const [userName, setUserName] = useState('milk')
     return (
         <div>
             <Nav />
@@ -28,7 +16,7 @@ export default function App() {
                 <Route
                     path={['/', '/home']}
                     exact
-                    render={() => <IndexView userName={userName} />} />
+                    component={IndexView} />
                 <Route
                     path="/about" // http://localhost:3000/about/
                     exact
