@@ -16,7 +16,10 @@ import './css/index.css'
  * 路由组件：被 Route 直接调用的组件，叫做路由组件
  *  在路由组件中，可以获取到 Route 传递的路由参数
  * 路由参数:
- *  
+ *  history
+ *      go(n) - 跳转当前的历史记录，跳转 n 步
+ *      goBack() - 返回历史记录上一步
+ *      goForward() - 前进到历史记录下一步
  */
 
 export default function App() {
