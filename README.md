@@ -101,63 +101,6 @@ export default function App() {
 
 
 
-### 路由组件 & 传参
-
-+ 路由组件 - 被 Route 直接调用的组件，叫做路由组件
-
-+ 在路由组件中，可以获取到 Route 传递的路由参数
-
-+ 路由参数：
-  - **history** - 路由方法
-    - `go(n)` 跳转到当前的历史记录，跳转 n 步 - 负值为后退，正值为前进
-    - `goBack()` - 返回历史记录上一步
-    - `goForward()` - 前进到历史记录下一步
-    - `push(url)` - 在不刷新页面的情况下跳转 url - 相当于 `<Link>`
-      - 第二参数可传参 - 在 `location.state` 中显示
-    - `length` - 当前历史记录中记录了多少项，上限为 50
-  - **location** - 路由信息
-    - `hash` - 当前 url 中的 hash 值
-    - `pathname` - 当前的 url
-    - `search` - 当前 url 的 search 值
-    - `state` - push 方法传递过来的数据
-  - **match** - 匹配信息
-    - `isExact` - 是否精确匹配
-    - `params` - 动态路由传递参数
-    - `path` - `<Route>` 中的 path
-    - `url` - url 中被匹配成功的值
-  
-+ Demo - [示例]()
-
-+ 通过 render() 调用视图的组件
-
-  + 路由参数会被传递给 render 的回调函数
-  + 组件如果需要使用路由参数，结构传递给组件
-
-  ```javascript
-  <Route path="/" exact render={routeProps => <IndexView userName={userName} {...routeProps} />} />
-  ```
-
-
-
-### 非路由组件获取路由参数
-
-+ 在路由组件中，我们可以通过 props 获取到路由参数，可是很多情况下我们在非路由组件中也希望使用到这些参数
-+ 当然，我们可以通过一层一层传递的方法去获取，但是这无疑是非常麻烦的事情，而且耦合性会非常的高
-+ 那么看下别的方法吧~
-
-#### widthRouter(component)
-
-
-
-### 动态路由
-
-+ 在定义 path 时，路由中某一段可能是非固定的，非固定部分可以通过 :name 定义
-+ 这样的作法是为了路由中传参
-+ 在路由参数中，可通过 match.params 来获取动态路由具体的值
-+ 大多动态路由都大同小异，详细解释可以看一下 [Vue的动态路由](https://juejin.cn/post/6906871851365564424#heading-14) 和 [node-koaRouter的路由](https://juejin.cn/post/6916909772079890440#heading-6)
-
-
-
 ### Link
 
 + React Router 使用 `<Link>` 组件用来处理 a 链接 类似的功能（它会在页面中生成一个 a 标签）
@@ -247,3 +190,111 @@ function App() {
 }
 ```
 
+
+
+### Redirect - 重定向
+
++ 一个商城类应用，`我的` 选项需要登录才可以看到详细内容，如果判断未登录再让用户点击，就多了一个步骤
++ 我们可不可以在用户点击 `我的` 时，直接判断用户是否已经登录，如果已登录，则看内容，未登录，直接跳至登录页面
++ 这个时候就需要用到 `<Redirect>` 重定向
++ 它可以改变 url 并跳至指定页面
+
+```javascript
+<Route
+    path="/list/:page"
+    exact
+    render={routeProps => {
+        if (1 !== 2 - 1) { // 这里为判断逻辑，我就随便写了
+            return <ListView {...routeProps} />
+        } else {
+            // 如果直接返回 <IndexView /> 会发生 url 不改变的问题
+            return <Redirect to="/" />
+        }
+    }} />
+```
+
+
+
+
+
+## 对象 & 方法
+
+### 路由组件 & 传参
+
++ 路由组件 - 被 Route 直接调用的组件，叫做路由组件
+
++ 在路由组件中，可以获取到 Route 传递的路由参数
+
++ 路由参数：
+  - **history** - 路由方法
+    - `go(n)` 跳转到当前的历史记录，跳转 n 步 - 负值为后退，正值为前进
+    - `goBack()` - 返回历史记录上一步
+    - `goForward()` - 前进到历史记录下一步
+    - `push(url)` - 在不刷新页面的情况下跳转 url - 相当于 `<Link>`
+      - 第二参数可传参 - 在 `location.state` 中显示
+    - `length` - 当前历史记录中记录了多少项，上限为 50
+  - **location** - 路由信息
+    - `hash` - 当前 url 中的 hash 值
+    - `pathname` - 当前的 url
+    - `search` - 当前 url 的 search 值
+    - `state` - push 方法传递过来的数据
+  - **match** - 匹配信息
+    - `isExact` - 是否精确匹配
+    - `params` - 动态路由传递参数
+    - `path` - `<Route>` 中的 path
+    - `url` - url 中被匹配成功的值
+  
++ Demo - [示例](https://github.com/milk0v0/hello_reactRouter)
+
++ 通过 render() 调用视图的组件
+
+  + 路由参数会被传递给 render 的回调函数
+  + 组件如果需要使用路由参数，结构传递给组件
+
+  ```javascript
+  <Route path="/" exact render={routeProps => <IndexView userName={userName} {...routeProps} />} />
+  ```
+
+
+
+### 非路由组件获取路由参数
+
++ 在路由组件中，我们可以通过 props 获取到路由参数，可是很多情况下我们在非路由组件中也希望使用到这些参数
++ 当然，我们可以通过一层一层传递的方法去获取，但是这无疑是非常麻烦的事情，而且耦合性会非常的高
++ 那么看下别的方法吧~
+
+#### widthRouter(cmp)
+
++ 高阶路由（高阶组件）：调用该方法时，返回一个新的组件
++ const newCmp = withRouter(cmp)
++ withRouter 适用于 类组件 和 函数组件
+
+```javascript
+import { withRouter } from "react-router"
+function PageNavigation(props) {
+    return <h1>翻页导航</h1>
+}
+export default withRouter(PageNavigation)
+```
+
+#### Hooks
+
++ 路由也有自己的 Hooks
++ 注意 Hooks 是 Router5 之后才有的，Hooks 只能用于 React 函数中
+
+> `useHistory` - 获取 history 方法
+>
+> `useLocation` - 获取 location 对象
+>
+> `useParams` - 获取动态路由参数
+>
+> `useRouteMatch` - 获取 match 对象
+
+
+
+### 动态路由
+
++ 在定义 path 时，路由中某一段可能是非固定的，非固定部分可以通过 :name 定义
++ 这样的作法是为了路由中传参
++ 在路由参数中，可通过 match.params 来获取动态路由具体的值
++ 大多动态路由都大同小异，详细解释可以看一下 [Vue的动态路由](https://juejin.cn/post/6906871851365564424#heading-14) 和 [node-koaRouter的路由](https://juejin.cn/post/6916909772079890440#heading-6)

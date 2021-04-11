@@ -1,7 +1,23 @@
-.nav a {
-    color: #000
+.wrap {
+    margin: 30px auto;
+    width: 800px;
 }
 
-.nav .link {
-    color: red
+.nav {
+    display: flex;
+    border-bottom: 1px solid #000;
+}
+
+.nav a {
+    flex: 1;
+    font: 14px/30px '微软雅黑';
+    margin-bottom: -1px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.nav .active {
+    color: red;
+    border-bottom: 1px solid #red;
 }
