@@ -9,6 +9,7 @@
   + Web
   + Native
 + 以下主要说说 Web 端的 router
++ 相关示例可以看下 - [hello_reactRouter](https://github.com/milk0v0/hello_reactRouter)
 
 
 
@@ -298,3 +299,4 @@ export default withRouter(PageNavigation)
 + 这样的作法是为了路由中传参
 + 在路由参数中，可通过 match.params 来获取动态路由具体的值
 + 大多动态路由都大同小异，详细解释可以看一下 [Vue的动态路由](https://juejin.cn/post/6906871851365564424#heading-14) 和 [node-koaRouter的路由](https://juejin.cn/post/6916909772079890440#heading-6)
+
