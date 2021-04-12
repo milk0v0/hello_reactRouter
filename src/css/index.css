@@ -5,12 +5,12 @@
 
 .nav {
     display: flex;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #333;
 }
 
 .nav a {
     flex: 1;
-    font: 14px/30px '微软雅黑';
+    font: 20px/40px '微软雅黑';
     margin-bottom: -1px;
     text-align: center;
     text-decoration: none;
@@ -19,5 +19,43 @@
 
 .nav .active {
     color: red;
-    border-bottom: 1px solid #red;
+    border-bottom: 1px solid red;
+}
+
+.subNav {
+    display: flex;
+}
+
+.subNav a {
+    flex: 1;
+    font: 14px/30px "微软雅黑";
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+}
+
+.subNav .active {
+    color: #fff;
+    background-color: #333;
+}
+
+.pageNav {
+    display: flex;
+    border-top: 1px solid #333;
+}
+
+.pageNav a {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px;
+    background-color: #eee;
+    text-decoration: none;
+    text-align: center;
+    color: #333;
+}
+
+.pageNav .active {
+    color: red;
 }

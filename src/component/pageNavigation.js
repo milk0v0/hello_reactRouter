@@ -1,26 +1,28 @@
-import { useHistory, useLocation, useParams, useRouteMatch, withRouter } from "react-router"
+import { useParams } from "react-router"
+import data from '../data'
+import Nav from "./nav";
 
-function PageNavigation() {
-    const history = useHistory();
-    const location = useLocation();
-    const parmas = useParams();
-    const match = useRouteMatch();
-    return <h1>翻页导航</h1>
+export default function PageNavigation() {
+    const { type = 'good', page = 1 } = useParams();
+    let nowData = data[type];
+    const len = 5;
+    const pageLen = nowData.length;
+    const pageStatistics = Math.ceil(pageLen / len);
+    const navList = returnList(`/list/${type}/`, pageStatistics, page);
+    return (
+        <Nav datas={navList} $class="pageNav" />
+    )
 }
 
-// const newPageNavigation = withRouter(PageNavigation);
-// export default newPageNavigation
-// export default withRouter(PageNavigation)
-export default PageNavigation
+function returnList(data, len, num) {
+    const arr = [];
+    for (let i = 1; i <= len; i++) {
+        arr.push({
+            title: i,
+            to: data + i,
+            exact: true
+        })
+    }
 
-/**
- * 高阶路由（高阶组件）：调用该方法时，返回一个新的组件
- *  const newCmp = withRouter(cmp)
- *  withRouter 适用于 类组件 和 函数组件
- * 
- * Hooks
- *  useHistory - 获取 history 方法
- *  useLocation - 获取 location 对象
- *  useParams - 获取动态路由参数
- *  useRouteMatch - 获取 match 对象
- */
+    return arr
+}

@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function JoinView(props) {
-    console.log(props);
     const { history } = props;
     const { go, goBack, goForward, push, length } = history;
     return (

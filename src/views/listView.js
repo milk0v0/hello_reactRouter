@@ -1,12 +1,14 @@
+import List from '../component/list'
+import Nav from '../component/nav'
 import PageNavigation from '../component/pageNavigation'
+import { subNavList } from '../routes'
 
 export default function ListView(props) {
-    const { params } = props.match
-    console.log(params);
     return (
-        <>
-            <h1>列表视图 - page: {params.page}</h1>
+        <div>
+            <Nav datas={subNavList} $class="subNav" />
+            <List />
             <PageNavigation />
-        </>
+        </div>
     )
 }
